@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 public class Main() {
     public static void main(String[] args) {
-        Queue<Child> santaQueue = new LinkedList<Child>();
+        Queue<Child> santaQueue = new LinkedList<>();
         boolean running = true;
         Scanner scanner = new Scanner(System.in);
         Child child1 = new Child("Aiza", "Reading", "iPhone 25", true);
@@ -16,14 +16,28 @@ public class Main() {
             System.out.println("Press 1 to add a child to Santa's Queue 🎅🏽. ");
             System.out.println("Press 2 to display the full list of the children waiting 🎁.");
             System.out.println("Press 3 to show the next child Santa will process 👧🏽.");
-            System.out.println("Pres 4 to remove a child from the queue when Santa has delivered the present 💝!!!");
+            System.out.println("Press 4 to remove a child from the queue when Santa has delivered the present 💝!!!");
             System.out.println("Press 5 to leave 🚪. ");
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     santaQueue.add(child1);
+                    santaQueue.add(child2);
+                    santaQueue.add(child3);
+                    santaQueue.add(child4);
+                    santaQueue.add(child5);
                     System.out.println(child1.getName() + " has been added to the queue!");
+                    System.out.println(child2.getName() + " has been added to the queue!");
+                    System.out.println(child3.getName() + " has been added to the queue!");
+                    System.out.println(child4.getName() + " has been added to the queue!");
+                    System.out.println(child5.getName() + " has been added to the queue!");
                     break;
+                case 2:
+                    System.out.println("hiya");
+                    break;
+                case 3:
+                    System.out.println("Here is the next child on Santa's List: " + santaQueue.peek());
+
             }
         }
     }
