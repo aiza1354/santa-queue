@@ -14,19 +14,50 @@ public class Main {
             System.out.println("Press 3 to show the next child Santa will process 👧🏽.");
             System.out.println("Press 4 to remove a child from the queue when Santa has delivered the present 💝!!!");
             System.out.println("Press 5 to search for a child by name 👧🏽 . ");
-            System.out.println("Press 6 to leave 🚪. ");
+            System.out.println("Press 6 find how many children were nice 😊 or naughty 👺 . ");
+            System.out.println("Press 7 to leave! 🚪. ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("Check your input");
+                scanner.nextLine();
+                continue;
+            }
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                    System.out.print("Enter the child's name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter child's address: ");
-                    String address = scanner.nextLine();
-                    System.out.print("Enter child's present: ");
-                    String present = scanner.nextLine();
-                    System.out.print("Enter if the child is nice (true/false): ");
-                    boolean isNice = scanner.nextBoolean();
+                    String name = ""; // keep string as "somethiung";
+                    while (name.isEmpty()){
+                        System.out.print("Enter the child's name: ");
+                        name = scanner.nextLine();
+                        if (name.isEmpty()){
+                            System.out.println("Check your input please.");
+                        }
+                    }
+                    String address = "";
+                    while (address.isEmpty()){
+                        System.out.print("Enter the child's address: ");
+                        address = scanner.nextLine();
+                        if (address.isEmpty()){
+                            System.out.println("Check your input please.");
+                        }
+                    }
+                    String present = "";
+                    while (present.isEmpty()){
+                        System.out.print("Enter the child's present: ");
+                        present = scanner.nextLine();
+                        if (present.isEmpty()){
+                            System.out.println("Check your input please.");
+                        }
+                    }
+                    boolean isNice = false;
+                    while (true) {
+                        System.out.print("Enter if the child is nice (true/false): ");
+                        String niceInput = scanner.nextLine().toLowerCase();
+                        if (niceInput.equals("true")||  niceInput.equals("false")) {
+                            isNice = Boolean.parseBoolean(niceInput);
+                            break;
+                        }else {
+                            System.out.println("Check your input please."); }}
                     Child child = new Child(name, address, present, isNice);
                     santaQueue.offer(child);
                     System.out.println("\n" + child.getName() + " has been added to the queue!");
@@ -61,11 +92,27 @@ public class Main {
                 case 5:
                     System.out.println("What is the name of the child that you are looking for?");
                     String findChild = scanner.nextLine();
+                    if (santaQueue.isEmpty()) {
+                        System.out.println("The queue is empty!");
+                    } else {
                     for (Child c : santaQueue) {
                         if (c.getName().equals(findChild)) {
                             System.out.println(findChild + " has been found! ");
                         } else {
                             System.out.println(findChild + " has not been found.");
+                        }
+                    } }
+                    break;
+                case 6:
+                    int count = 0 ;
+                    int count1 = 0;
+                    for (Child c : santaQueue) {
+                        if (c.getNice() == (true)) {
+                            count++;
+                            System.out.println("The number of children who were nice: " + count);
+                        } else {
+                            count1++;
+                            System.out.println("The number of children who were naughty: " + count1);
                         }
                     }
                     break;
