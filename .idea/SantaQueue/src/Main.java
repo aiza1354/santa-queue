@@ -1,16 +1,14 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Queue;
-public class Main() {
+
+public class Main {
+
     public static void main(String[] args) {
         Queue<Child> santaQueue = new LinkedList<>();
         boolean running = true;
         Scanner scanner = new Scanner(System.in);
-        Child child1 = new Child("Aiza", "Reading", "iPhone 25", true);
-        Child child2 = new Child("Rukhsar", "Reading", "iPhone 25", true);
-        Child child3 = new Child("Shahzad", "Reading", "iPhone 25", true);
-        Child child4 = new Child("Imaan", "Reading", "iPhone 25", true);
-        Child child5 = new Child("Aamna", "Reading", "iPhone 25", true);
+
         System.out.println("Santa's Workshop!!");
         while (running) {
             System.out.println("Press 1 to add a child to Santa's Queue 🎅🏽. ");
@@ -19,26 +17,45 @@ public class Main() {
             System.out.println("Press 4 to remove a child from the queue when Santa has delivered the present 💝!!!");
             System.out.println("Press 5 to leave 🚪. ");
             int choice = scanner.nextInt();
+            scanner.nextLine();
             switch (choice) {
                 case 1:
-                    santaQueue.add(child1);
-                    santaQueue.add(child2);
-                    santaQueue.add(child3);
-                    santaQueue.add(child4);
-                    santaQueue.add(child5);
-                    System.out.println(child1.getName() + " has been added to the queue!");
-                    System.out.println(child2.getName() + " has been added to the queue!");
-                    System.out.println(child3.getName() + " has been added to the queue!");
-                    System.out.println(child4.getName() + " has been added to the queue!");
-                    System.out.println(child5.getName() + " has been added to the queue!");
+                    System.out.print("Enter the child's name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter child's address: ");
+                    String address = scanner.nextLine();
+                    System.out.print("Enter child's present: ");
+                    String present = scanner.nextLine();
+                    System.out.print("Enter if the child is nice (true/false): ");
+                    boolean isNice = scanner.nextBoolean();
+                    Child child = new Child(name, address, present, isNice);
+                    santaQueue.offer(child);
+                    System.out.println("\n" + child.getName() + " has been added to the queue!");
                     break;
                 case 2:
-                    System.out.println("hiya");
+                    System.out.println(santaQueue);
                     break;
                 case 3:
-                    System.out.println("Here is the next child on Santa's List: " + santaQueue.peek());
-
+                    Child nextChild = santaQueue.peek();
+                    if (nextChild != null) {
+                        System.out.println("The next child on the list is: " + nextChild);
+                    } else {
+                        System.out.println("\nThe queue is empty!");
+                    }
+                    break;
+                case 4:
+                    Child foundChild = santaQueue.poll();
+                    System.out.println("Santa has delivered " + foundChild + "present!");
+                    break;
+                case 5:
+                    running = false;
+                    System.out.println("Thank you for managing Santa's Workshop. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+                    break;
             }
         }
+        scanner.close();
     }
 }

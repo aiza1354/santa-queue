@@ -25,7 +25,13 @@ public class Child {
 
     public boolean getNice() {
         return this.isNice;
-
     }
-}
 
+    @Override
+    public String toString() {
+        return "Name: " + this.name + "\n" +
+                "Address: " + this.address + "\n" +
+                "Present: " + this.present + "\n" +
+                "Nice Status: " + this.isNice;
+        }
+    }
