@@ -55,30 +55,9 @@ public class Main {
     }
 
     private static void addChild(Scanner scanner, Queue<Child> santaQueue) {
-        String name = ""; // keep string as "somethiung";
-        while (name.isEmpty()){
-            System.out.print("Enter the child's name: ");
-            name = scanner.nextLine();
-            if (name.isEmpty()){
-                System.out.println("Check your input please.");
-            }
-        }
-        String address = "";
-        while (address.isEmpty()){
-            System.out.print("Enter the child's address: ");
-            address = scanner.nextLine();
-            if (address.isEmpty()){
-                System.out.println("Check your input please.");
-            }
-        }
-        String present = "";
-        while (present.isEmpty()){
-            System.out.print("Enter the child's present: ");
-            present = scanner.nextLine();
-            if (present.isEmpty()){
-                System.out.println("Check your input please.");
-            }
-        }
+        String name = getChildInfo("Enter the child's name: ", scanner);
+        String address = getChildInfo("Enter the child's address: ", scanner);
+        String present = getChildInfo("Enter the child's present: ", scanner);
         boolean isNice = false;
         while (true) {
             System.out.print("Enter if the child is nice (true/false): ");
@@ -91,6 +70,18 @@ public class Main {
         Child child = new Child(name, address, present, isNice);
         santaQueue.offer(child);
         System.out.println("\n" + child.getName() + " has been added to the queue!");
+    }
+
+    private static String getChildInfo(String inputMessage, Scanner scanner) {
+        String field = "";
+        while (field.isEmpty()) {
+            System.out.print(inputMessage);
+            field = scanner.nextLine();
+            if (field.isEmpty()) {
+                System.out.println("Check your input please.");
+            }
+        }
+        return field;
     }
 
 
