@@ -25,96 +25,22 @@ public class Main {
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                    String name = ""; // keep string as "somethiung";
-                    while (name.isEmpty()){
-                        System.out.print("Enter the child's name: ");
-                        name = scanner.nextLine();
-                        if (name.isEmpty()){
-                            System.out.println("Check your input please.");
-                        }
-                    }
-                    String address = "";
-                    while (address.isEmpty()){
-                        System.out.print("Enter the child's address: ");
-                        address = scanner.nextLine();
-                        if (address.isEmpty()){
-                            System.out.println("Check your input please.");
-                        }
-                    }
-                    String present = "";
-                    while (present.isEmpty()){
-                        System.out.print("Enter the child's present: ");
-                        present = scanner.nextLine();
-                        if (present.isEmpty()){
-                            System.out.println("Check your input please.");
-                        }
-                    }
-                    boolean isNice = false;
-                    while (true) {
-                        System.out.print("Enter if the child is nice (true/false): ");
-                        String niceInput = scanner.nextLine().toLowerCase();
-                        if (niceInput.equals("true")||  niceInput.equals("false")) {
-                            isNice = Boolean.parseBoolean(niceInput);
-                            break;
-                        }else {
-                            System.out.println("Check your input please."); }}
-                    Child child = new Child(name, address, present, isNice);
-                    santaQueue.offer(child);
-                    System.out.println("\n" + child.getName() + " has been added to the queue!");
+                    addChild(scanner, santaQueue);
                     break;
                 case 2:
-                    if (santaQueue.isEmpty()) {
-                        System.out.println("The queue is empty!");
-                    } else {
-                        for (Child c : santaQueue) {
-                            System.out.println(c);
-                            System.out.println("\n");
-                        }
-                    }
+                    printQueue(santaQueue);
                     break;
                 case 3:
-                    Child nextChild = santaQueue.peek();
-                    if (nextChild != null) {
-                        System.out.println("The next child in Santa's Queue is: " + nextChild);
-                    } else {
-                        System.out.println("\nThe queue is empty!");
-                    }
+                    printNextChild(santaQueue);
                     break;
                 case 4:
-                    Child deliveredChild = santaQueue.poll();
-                    if (deliveredChild != null) {
-                        System.out.println("Santa has already given the present to: " + deliveredChild.getName());
-                        System.out.println("They have been removed from the queue.");
-                    } else {
-                        System.out.println("The queue is empty! No child to remove.");
-                    }
+                    removeNextChild(santaQueue);
                     break;
                 case 5:
-                    System.out.println("What is the name of the child that you are looking for?");
-                    String findChild = scanner.nextLine();
-                    if (santaQueue.isEmpty()) {
-                        System.out.println("The queue is empty!");
-                    } else {
-                    for (Child c : santaQueue) {
-                        if (c.getName().equals(findChild)) {
-                            System.out.println(findChild + " has been found! ");
-                        } else {
-                            System.out.println(findChild + " has not been found.");
-                        }
-                    } }
+                    findChild(scanner, santaQueue);
                     break;
                 case 6:
-                    int count = 0 ;
-                    int count1 = 0;
-                    for (Child c : santaQueue) {
-                        if (c.getNice() == (true)) {
-                            count++;
-                            System.out.println("The number of children who were nice: " + count);
-                        } else {
-                            count1++;
-                            System.out.println("The number of children who were naughty: " + count1);
-                        }
-                    }
+                    niceOrNaughty(santaQueue);
                     break;
                 case 7:
                     running = false;
@@ -127,4 +53,112 @@ public class Main {
         }
         scanner.close();
     }
+
+    private static void addChild(Scanner scanner, Queue<Child> santaQueue) {
+        String name = ""; // keep string as "somethiung";
+        while (name.isEmpty()){
+            System.out.print("Enter the child's name: ");
+            name = scanner.nextLine();
+            if (name.isEmpty()){
+                System.out.println("Check your input please.");
+            }
+        }
+        String address = "";
+        while (address.isEmpty()){
+            System.out.print("Enter the child's address: ");
+            address = scanner.nextLine();
+            if (address.isEmpty()){
+                System.out.println("Check your input please.");
+            }
+        }
+        String present = "";
+        while (present.isEmpty()){
+            System.out.print("Enter the child's present: ");
+            present = scanner.nextLine();
+            if (present.isEmpty()){
+                System.out.println("Check your input please.");
+            }
+        }
+        boolean isNice = false;
+        while (true) {
+            System.out.print("Enter if the child is nice (true/false): ");
+            String niceInput = scanner.nextLine().toLowerCase();
+            if (niceInput.equals("true")||  niceInput.equals("false")) {
+                isNice = Boolean.parseBoolean(niceInput);
+                break;
+            }else {
+                System.out.println("Check your input please."); }}
+        Child child = new Child(name, address, present, isNice);
+        santaQueue.offer(child);
+        System.out.println("\n" + child.getName() + " has been added to the queue!");
+    }
+
+
+    public static void printQueue(Queue<Child> santaQueue) {
+        if (santaQueue.isEmpty()) {
+            System.out.println("The queue is empty!");
+        } else {
+            for (Child c : santaQueue) {
+                System.out.println(c);
+                System.out.println("\n");
+            }
+        }
+    }
+
+    public static void printNextChild(Queue <Child> santaQueue) {
+        Child nextChild = santaQueue.peek();
+        if (nextChild != null) {
+            System.out.println("The next child in Santa's Queue is: " + nextChild);
+        } else {
+            System.out.println("\nThe queue is empty!");
+        }
+
+
+    }
+    public static void removeNextChild(Queue <Child> santaQueue) {
+        Child deliveredChild = santaQueue.poll();
+        if (deliveredChild != null) {
+                System.out.println("Santa has already given the present to: " + deliveredChild.getName());
+                System.out.println("They have been removed from the queue.");
+        } else {
+            System.out.println("The queue is empty! No child to remove.");
+        }
+
+    }
+
+    public static void findChild(Scanner scanner, Queue <Child> santaQueue) {
+        System.out.println("What is the name of the child that you are looking for?");
+        String findChild = scanner.nextLine();
+        if (santaQueue.isEmpty()) {
+            System.out.println("The queue is empty!");
+        } else {
+            for (Child c : santaQueue) {
+                if (c.getName().equals(findChild)) {
+                    System.out.println(findChild + " has been found! ");
+                } else {
+                    System.out.println(findChild + " has not been found.");
+                }
+            } }
+
+
+    }
+
+    public static void niceOrNaughty(Queue <Child> santaQueue){
+        int count = 0 ;
+        int count1 = 0;
+        for (Child c : santaQueue) {
+            if (c.getNice() == (true)) {
+                count++;
+                System.out.println("The number of children who were nice: " + count);
+            } else {
+                count1++;
+                System.out.println("The number of children who were naughty: " + count1);
+            }
+        }
+
+    }
+
+
+
+
 }
